@@ -1,5 +1,5 @@
-import { log } from "console";
-import mongoose, { mongo } from "mongoose";
+
+import mongoose from "mongoose";
 const MONGODB_URI = process.env.MONGODB_URI!;
 
 if(!MONGODB_URI){
@@ -19,7 +19,7 @@ export async function connectToDatabase(){
 
     if(!cached.promise){
         const opts = {
-            bufferCommmands: true,
+            bufferCommands: true,
             maxPoolSize: 5,
         }
 
@@ -30,11 +30,12 @@ export async function connectToDatabase(){
 
     try {
         cached.conn = await cached.promise;
-        console.log(cached.conn);
+        //console.log(cached.conn);
         
     } catch (error) {
         cached.promise = null;
         console.log("Check connection db.ts file", error);
+        throw error;
     }
 
     return cached.conn;
