@@ -1,6 +1,10 @@
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import SessionProviderWrapper from "@/components/SessionProviderComponent";
+import NoInternet from "@/components/NoInternet";
+import Header from "@/components/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +31,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <NoInternet />
+        <SessionProviderWrapper>
+        <Header />
+        <main className="container mx-auto px-4 py-8">{children}</main>
+        </SessionProviderWrapper>
       </body>
     </html>
   );
